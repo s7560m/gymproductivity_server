@@ -15,7 +15,15 @@ router.get('/add', async (req, res) => {
     }
 
     const userDoc = {timeCreated: new Date(), code: code, ...req.body};
-    await user.insertOne(userDoc).then(() => res.send("user added successfully!")).catch(err => console.log(err));
+
+    // make sure user's name exists (we only test for what's required)
+    if (req.body.name !== undefined) {
+        user.insertOne(userDoc)
+            .then(() => res.send("user added successfully!"))
+            .catch(err => console.log(err));
+    } else {
+        res.send("Please add a name for the user you want to add!");
+    }
 })
 
 // login a user based on their code, return their stats
