@@ -17,6 +17,6 @@ app.get('/', (req, res) => {
 
 // THE NPM INSTALL SCRIPT FUCKED THINGS UP. DON'T USE THAT ANYMORE
 
-app.listen(process.env.port || port, () => {
+app.listen(process.env.PORT || port, () => {
     console.log(`Example app listening on port ${port}`)
 })
