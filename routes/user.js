@@ -1,5 +1,4 @@
 const express = require('express')
-// const app = express();
 const router = express.Router();
 const client = require('../mongoclient');
 
@@ -19,7 +18,7 @@ router.get('/add', async (req, res) => {
     // make sure user's name exists (we only test for what's required)
     if (req.body.name !== undefined) {
         user.insertOne(userDoc)
-            .then(() => res.send("user added successfully!"))
+            .then(() => res.send(code))
             .catch(err => console.log(err));
     } else {
         res.send("Please add a name for the user you want to add!");
