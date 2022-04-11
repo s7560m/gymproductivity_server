@@ -95,10 +95,23 @@ router.get('/getLeaderboard', async (req, res) => {
     await client.connect();
     let group = await client.db('ExercisesDB').collection('GroupsCollection').findOne({groupCode: groupCode});
 
-    // map group userCodes into their mongodb promises
-    const groupMappedForMongoDB = group.userCode.map(userCode => client.db("ExercisesDB").collection("UserbaseCollection").findOne({code: userCode}))
+    let leaderboard = [];
+    if (group !== null) {
 
-    const users = await Promise.all(groupMappedForMongoDB);
+        // iterate over group and push to the leaderboard array
+        for (const userCode of group.userCode) {
+            const user = await client.db("ExercisesDB").collection("UserbaseCollection").findOne({code: userCode});
+            const exercisesOfUser = await client.db('ExercisesDB').collection('ExercisesCollection').find({code: userCode}).toArray();
+            leaderboard.push({user: user, exercises: exercisesOfUser});
+        }
+
+        res.send(leaderboard);
+
+    } else {
+        res.send("Group code is invalid!");
+    }
+
+
 
     // return a sorted array of name and number of workouts done
     // res.send(users);
