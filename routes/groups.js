@@ -3,7 +3,7 @@ const router = express.Router();
 const client = require('../mongoclient');
 
 // create a group
-router.get('/create', async (req, res) => {
+router.post('/create', async (req, res) => {
     // set up variables
     const userCode = req.body.userCode;
     const groupName = req.body.groupName;
@@ -44,7 +44,7 @@ router.get('/create', async (req, res) => {
     }
 })
 
-router.get('/join', async (req, res) => {
+router.post('/join', async (req, res) => {
     const userCode = req.body.userCode;
     const groupCode = req.body.groupCode;
 

@@ -3,7 +3,7 @@ const router = express.Router();
 const client = require('../mongoclient');
 
 // add the exercise to an existing user
-router.get('/add', async (req, res) => {
+router.post('/add', async (req, res) => {
     await client.connect();
     const collection = client.db("ExercisesDB").collection("ExercisesCollection");
 
@@ -30,7 +30,7 @@ router.get('/add', async (req, res) => {
 })
 
 // get the user's exercises based on their 4-letter code
-router.get('/get', async (req, res) => {
+router.post('/get', async (req, res) => {
     await client.connect();
     const code = req.body.code;
 

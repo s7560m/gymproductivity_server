@@ -3,7 +3,7 @@ const router = express.Router();
 const client = require('../mongoclient');
 
 // add a user, return four digit code
-router.get('/add', async (req, res) => {
+router.post('/add', async (req, res) => {
     await client.connect();
     const user = client.db("ExercisesDB").collection("UserbaseCollection");
 
@@ -26,7 +26,7 @@ router.get('/add', async (req, res) => {
 })
 
 // login a user based on their code, return their stats
-router.get('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     await client.connect();
 
     const code = req.body.code;
