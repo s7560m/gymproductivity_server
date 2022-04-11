@@ -5,8 +5,11 @@ const port = 3000
 const exercisesRouter = require('./routes/exercises')
 const userRouter = require('./routes/user');
 const groupRouter = require('./routes/groups')
+const cors = require('cors');
 // you need this to parse bodies in express - doesn't work otherwise
 app.use(express.json());
+
+app.use(cors({origin: '*'}));
 
 app.use('/exercise', exercisesRouter);
 app.use('/user', userRouter);
