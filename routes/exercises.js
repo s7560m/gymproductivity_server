@@ -18,7 +18,7 @@ router.post('/add', async (req, res) => {
 
         // make sure the user is not null
         if (user !== null) {
-            await collection.insertOne(exerciseDocument).then(() => res.send("document added successfully!")).catch(err => console.log(err));
+            await collection.insertOne(exerciseDocument).then(() => res.send("Exercise added successfully!")).catch(err => console.log(err));
         } else {
             res.send("User does not exist!");
         }
