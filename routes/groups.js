@@ -76,7 +76,7 @@ router.post('/join', async (req, res) => {
                 res.send("User successfully added to group!")
 
             } else {
-                res.send("User does not exist!")
+                res.send("User code is invalid!")
             }
         }
 
