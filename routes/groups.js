@@ -7,7 +7,7 @@ router.post('/create', async (req, res) => {
     // set up variables
     const userCode = req.body.userCode;
     const groupName = req.body.groupName;
-    const description = (req.body.description !== undefined) ? req.body.description : ""; // optional
+    const description = (req.body.description !== undefined) ? req.body.description : "No description provided."; // optional
 
     // make sure the user code and group name are entered
     if (userCode !== undefined && groupName !== undefined) {
@@ -60,7 +60,7 @@ router.post('/join', async (req, res) => {
         console.log(group.userCode.indexOf(userCode));
         if (group.userCode.indexOf(userCode) !== -1) {
 
-            res.send("User already exists!");
+            res.send("User is already a part of this group!");
 
         } else {
 
@@ -110,11 +110,6 @@ router.post('/getLeaderboard', async (req, res) => {
     } else {
         res.send("Group code is invalid!");
     }
-
-
-
-    // return a sorted array of name and number of workouts done
-    // res.send(users);
 
 
 })
