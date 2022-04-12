@@ -88,7 +88,7 @@ router.post('/join', async (req, res) => {
     }
 })
 
-router.get('/getLeaderboard', async (req, res) => {
+router.post('/getLeaderboard', async (req, res) => {
     // get the names of all users in a group
     const groupCode = req.body.groupCode;
 

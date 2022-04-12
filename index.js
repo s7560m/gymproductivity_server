@@ -9,7 +9,8 @@ const cors = require('cors');
 // you need this to parse bodies in express - doesn't work otherwise
 app.use(express.json());
 
-app.use(cors({origin: '*'}));
+const corsOptions = {origin: '*'}
+app.use(cors());
 
 app.use('/exercise', exercisesRouter);
 app.use('/user', userRouter);
