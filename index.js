@@ -14,7 +14,7 @@ const MongoStore = require('connect-mongo');
 app.use(express.json());
 
 const corsOptions = {origin: ['localhost:8080', 'gymaccountability.web.app']}
-app.use(cors());
+app.use(cors(corsOptions));
 
 
 // store session data
