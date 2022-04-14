@@ -24,6 +24,7 @@ app.use(session({
     saveUninitialized:true,
     cookie: {
         secure: true,
+        httpOnly: false,
         expires: new Date(253402300000000) // never expires until the user logs out
     },
     resave: false,
