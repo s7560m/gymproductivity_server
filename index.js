@@ -13,18 +13,19 @@ const MongoStore = require('connect-mongo');
 // you need this to parse bodies in express - doesn't work otherwise
 app.use(express.json());
 
-const corsOptions = {credentials: true, origin: 'http://localhost:8080'}
+const corsOptions = {credentials: true, origin: ['http://localhost:8080', 'https://gymaccountability.web.app']}
 app.use(cors(corsOptions));
 
 
 // store session data
 const oneWeek = 7 * 24 * 3600 * 1000;
+const secure = false;
 app.use(session({
     secret: "thisismys3cretl0l",
     saveUninitialized:true,
     cookie: {
-        secure: true,
-        httpOnly: false,
+        secure: secure,
+        httpOnly: !secure,
         expires: new Date(253402300000000) // never expires until the user logs out
     },
     resave: false,
