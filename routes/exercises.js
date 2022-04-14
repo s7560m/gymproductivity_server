@@ -18,6 +18,11 @@ router.post('/add', async (req, res) => {
 
         // make sure the user is not null
         if (user !== null) {
+
+            // save the user's session
+            // this can be persistent because the user is constantly going to be going back to submitting workouts
+            req.session.user = user;
+
             await collection.insertOne(exerciseDocument).then(() => res.send("Exercise added successfully!")).catch(err => console.log(err));
         } else {
             res.send("User does not exist!");

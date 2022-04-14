@@ -34,4 +34,32 @@ router.post('/login', async (req, res) => {
     res.send(user);
 })
 
+// log the user out and destroy the session
+router.get('/logout', async (req, res) => {
+    if (req.session){
+        req.session.destroy();
+        res.send("Successfully logged out user!");
+    } else {
+        res.send("No session exists!");
+    }
+})
+
+
+
+// session testing
+router.get('/getSession', async (req, res) => {
+    if (req.session) {
+
+        // return the whole session which we can then parse
+        res.send(req.session);
+    } else {
+        res.send("No sessions exists!");
+    }
+})
+
+router.get('/testSession', async (req, res) => {
+    req.session.code = req.query.code;
+    res.send("success! your new code is " + req.query.code);
+})
+
 module.exports = router;

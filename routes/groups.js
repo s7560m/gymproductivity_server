@@ -98,6 +98,10 @@ router.post('/getLeaderboard', async (req, res) => {
     let leaderboard = [];
     if (group !== null) {
 
+        // set session's groupcode
+        // this can be persistent because the user will constantly go back to checking stats
+        req.session.groupCode = groupCode;
+
         // iterate over group and push to the leaderboard array
         for (const userCode of group.userCode) {
             const user = await client.db("ExercisesDB").collection("UserbaseCollection").findOne({code: userCode});
@@ -110,8 +114,7 @@ router.post('/getLeaderboard', async (req, res) => {
     } else {
         res.send("Group code is invalid!");
     }
-
-
 })
+
 // you need to export the router variable to use in index.js
 module.exports = router;
