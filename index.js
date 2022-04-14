@@ -23,7 +23,7 @@ app.use(session({
     secret: "thisismys3cretl0l",
     saveUninitialized:true,
     cookie: {
-        secure: app.get('env') === 'production',
+        secure: true,
         expires: new Date(253402300000000) // never expires until the user logs out
     },
     resave: false,
