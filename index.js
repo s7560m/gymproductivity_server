@@ -13,7 +13,7 @@ const MongoStore = require('connect-mongo');
 // you need this to parse bodies in express - doesn't work otherwise
 app.use(express.json());
 
-const corsOptions = {origin: ['localhost:8080', 'gymaccountability.web.app']}
+const corsOptions = {origin: "*"}
 app.use(cors(corsOptions));
 
 
