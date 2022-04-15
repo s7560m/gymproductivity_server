@@ -60,6 +60,6 @@ router.get('/getSession', async (req, res) => {
 router.get('/testSession', async (req, res) => {
     req.session.code = req.query.code;
     res.send("success! your new code is " + req.query.code);
-})
+})g
 
 module.exports = router;

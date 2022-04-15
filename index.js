@@ -26,6 +26,7 @@ app.use(session({
     cookie: {
         secure: secure,
         httpOnly: !secure,
+        sameSite: 'none', // allow cross-site cookies
         expires: new Date(253402300000000) // never expires until the user logs out
     },
     resave: false,
