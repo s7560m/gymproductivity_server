@@ -13,21 +13,18 @@ const MongoStore = require('connect-mongo');
 // you need this to parse bodies in express - doesn't work otherwise
 app.use(express.json());
 
-const corsOptions = {credentials: true, origin: ['http://localhost:8080', 'https://gymaccountability.web.app']}
+const corsOptions = {credentials: true, origin: ['http://localhost:8080', 'https://gymaction.ca']}
 app.use(cors(corsOptions));
 
 
 // store session data
 const secure = true; // set to true for production
 
-// we need to trust the proxy that heroku uses
-// app.set('trust proxy', 1);
 app.use(session({
     secret: "thisismys3cretl0l",
     saveUninitialized: true,
     cookie: {
         secure: secure,
-        // httpOnly: secure,
         sameSite: 'none', // allow cross-site cookies
         expires: new Date(253402300000000) // never expires until the user logs out
     },
