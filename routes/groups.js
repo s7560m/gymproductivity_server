@@ -90,7 +90,7 @@ router.post('/join', async (req, res) => {
 
 router.post('/getLeaderboard', async (req, res) => {
     // get the names of all users in a group
-    const groupCode = req.session.groupCode || req.body.groupCode;
+    const groupCode = (req.session.group) ? req.session.group.groupCode : req.body.groupCode;
 
     await client.connect();
     let group = await client.db('ExercisesDB').collection('GroupsCollection').findOne({groupCode: groupCode});
@@ -100,7 +100,7 @@ router.post('/getLeaderboard', async (req, res) => {
 
         // set session's groupcode
         // this can be persistent because the user will constantly go back to checking stats
-
+        req.session.group = group;
         // iterate over group and push to the leaderboard array
         for (const userCode of group.userCode) {
             const user = await client.db("ExercisesDB").collection("UserbaseCollection").findOne({code: userCode});

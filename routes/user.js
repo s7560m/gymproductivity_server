@@ -49,7 +49,7 @@ router.get('/logout', async (req, res) => {
 // session testing
 router.get('/getSession', async (req, res) => {
     if (req.session) {
-
+        console.log(req.session);
         // return the whole session which we can then parse
         res.send(req.session);
     } else {
@@ -59,7 +59,9 @@ router.get('/getSession', async (req, res) => {
 
 router.get('/testSession', async (req, res) => {
     req.session.code = req.query.code;
+    console.log(req.session);
     res.send("success! your new code is " + req.query.code);
-})g
+
+})
 
 module.exports = router;
