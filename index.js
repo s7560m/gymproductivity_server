@@ -21,7 +21,7 @@ app.use(cors(corsOptions));
 const secure = true; // set to true for production
 
 // we need to trust the proxy that heroku uses
-app.set('trust proxy', 1);
+// app.set('trust proxy', 1);
 app.use(session({
     secret: "thisismys3cretl0l",
     saveUninitialized: true,
