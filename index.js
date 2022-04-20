@@ -9,6 +9,7 @@ const cors = require('cors');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
+const testingRouter = require('./routes/testing')
 
 // you need this to parse bodies in express - doesn't work otherwise
 app.use(express.json());
@@ -25,7 +26,6 @@ app.use(session({
     saveUninitialized: true,
     cookie: {
         secure: secure,
-        sameSite: 'none', // allow cross-site cookies
         expires: new Date(253402300000000) // never expires until the user logs out
     },
     resave: false,
@@ -38,6 +38,7 @@ app.use(cookieParser());
 app.use('/exercise', exercisesRouter);
 app.use('/user', userRouter);
 app.use('/group', groupRouter);
+app.use('/testing', testingRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
