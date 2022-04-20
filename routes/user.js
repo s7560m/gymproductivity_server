@@ -13,7 +13,20 @@ router.post('/add', async (req, res) => {
         code += String.fromCharCode(Math.floor(Math.random() * (90 - 65) + 65));
     }
 
-    const userDoc = {timeCreated: new Date(), code: code, ...req.body};
+    // generate new timezone based on America/Toronto timezone
+    const options = {
+            timeZone: 'America/Toronto',
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+        },
+        formatter = new Intl.DateTimeFormat([], options);
+    let date = formatter.format(new Date());
+
+    const userDoc = {timeCreated: date, code: code, ...req.body};
 
     // make sure user's name exists (we only test for what's required)
     if (req.body.name !== undefined) {
@@ -44,7 +57,21 @@ router.get('/logout', async (req, res) => {
     }
 })
 
+// edit bio
+router.post('/updateBio', async (req, res) => {
+    const user = req.body;
 
+    await client.connect();
+
+    let newUserDoc = {timeCreated: user.timeCreated, code: user.code, name: user.name, bio: user.bio};
+
+    // update bio in the user's session
+    req.session.user.bio = user.bio;
+
+    // replace user doc based on bio
+    await client.db("ExercisesDB").collection("UserbaseCollection").replaceOne({"code": user.code}, newUserDoc);
+    res.send("Updated user document");
+})
 
 // session testing
 router.get('/getSession', async (req, res) => {

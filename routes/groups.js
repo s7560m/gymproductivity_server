@@ -90,7 +90,8 @@ router.post('/join', async (req, res) => {
 
 router.post('/getLeaderboard', async (req, res) => {
     // get the names of all users in a group
-    const groupCode = (req.session.group) ? req.session.group.groupCode : req.body.groupCode;
+    // do NOT set req.session.group in here -> you want to achieve this with /getSession
+    const groupCode = req.body.groupCode;
 
     await client.connect();
     let group = await client.db('ExercisesDB').collection('GroupsCollection').findOne({groupCode: groupCode});

@@ -7,8 +7,21 @@ router.post('/add', async (req, res) => {
     await client.connect();
     const collection = client.db("ExercisesDB").collection("ExercisesCollection");
 
+    // timestamp based on current timezone
+    const options = {
+            timeZone: 'America/Toronto',
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+    },
+    formatter = new Intl.DateTimeFormat([], options);
+    let date = formatter.format(new Date());
+
     // exercise document will contain things such as user (their code), date, weight (which is optional), and notes (which is also optional)
-    const exerciseDocument = {timestamp: new Date(), ...req.body};
+    const exerciseDocument = {timestamp: date, ...req.body};
     const code = req.body.code;
 
     if (code !== undefined) {
